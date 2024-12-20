@@ -45,7 +45,7 @@ export default function Onboarding() {
           label="Let's Get Started "
           onPress={() => {
             setIsFirstTime(false);
-            router.replace('/home');
+            router.replace('/(app)');
           }}
         />
       </SafeAreaView>
