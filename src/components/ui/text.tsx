@@ -12,14 +12,14 @@ export const Text = ({ className = '', style, children, ...props }: Props) => {
     () =>
       twMerge(
         'text-base text-black dark:text-white font-inter font-normal',
-        className,
+        className
       ),
-    [className],
+    [className]
   );
 
   const nStyle = React.useMemo(
     () => StyleSheet.flatten([style]) as TextStyle,
-    [style],
+    [style]
   );
 
   return (

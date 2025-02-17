@@ -25,18 +25,10 @@
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
   "cSpell.words": ["Flashlist", "Lato"],
-  // Remove these lines
-  // "i18n-ally.localesPaths": ["src/translations/"],
-  // "i18n-ally.keystyle": "nested",
-  // "i18n-ally.disabled": false, // make sure to disable i18n-ally in your global setting and only enable it for such projects
+  "i18n-ally.localesPaths": ["src/translations/"],
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.disabled": false, // make sure to disable i18n-ally in your global setting and only enable it for such projects
   "tailwindCSS.experimental.classRegex": [
     ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"]
-  ],
-  "i18n-ally.localesPaths": [
-    "src/lib/i18n",
-    "ios/Pods/RCT-Folly/folly/lang",
-    "ios/Pods/boost/boost/predef/language",
-    "ios/Pods/Headers/Private/RCT-Folly/folly/lang",
-    "ios/Pods/Headers/Public/RCT-Folly/folly/lang"
   ]
 }

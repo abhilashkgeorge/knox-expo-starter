@@ -16,7 +16,7 @@ export const ThemeItem = () => {
       setSelectedTheme(option.value as ColorSchemeType);
       modal.dismiss();
     },
-    [setSelectedTheme, modal],
+    [setSelectedTheme, modal]
   );
 
   const themes = React.useMemo(
@@ -25,12 +25,12 @@ export const ThemeItem = () => {
       { label: 'Light 🌞', value: 'light' },
       { label: 'System ⚙️', value: 'system' },
     ],
-    [],
+    []
   );
 
   const theme = React.useMemo(
     () => themes.find((t) => t.value === selectedTheme),
-    [selectedTheme, themes],
+    [selectedTheme, themes]
   );
 
   return (
