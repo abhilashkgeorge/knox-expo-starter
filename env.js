@@ -34,12 +34,12 @@ require('dotenv').config({
 
 // TODO: Replace these values with your own
 
-const BUNDLE_ID = 'com.knox-expo-starter-kit'; // ios bundle id
-const PACKAGE = 'com.knox-expo-starter-kit'; // android package name
-const NAME = 'knox-expo-starter-kit'; // app name
+const BUNDLE_ID = 'com.knoxstarter'; // ios bundle id
+const PACKAGE = 'com.knox_expo_starter_kit'; // android package name
+const NAME = 'knox_expo_starter_kit'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
 const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
-const SCHEME = 'knox-expo-starter-kit'; // app scheme
+const SCHEME = 'knox_expo_starter_kit'; // app scheme
 
 /**
  * We declare a function withEnvSuffix that will add a suffix to the variable name based on the APP_ENV
