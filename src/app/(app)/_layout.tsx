@@ -2,7 +2,7 @@
 import { Redirect, SplashScreen, Tabs } from 'expo-router';
 import React, { useCallback, useEffect } from 'react';
 
-import { Home as HomeIcon } from '@/components/ui/icons';
+import { Home as HomeIcon, Settings } from '@/components/ui/icons';
 import { useAuth, useIsFirstTime } from '@/lib';
 
 export default function TabLayout() {
@@ -22,6 +22,11 @@ export default function TabLayout() {
   if (isFirstTime) {
     return <Redirect href="/onboarding" />;
   }
+
+  if (status === 'signOut') {
+    return <Redirect href="/login" />;
+  }
+
   return (
     <Tabs>
       <Tabs.Screen
@@ -31,6 +36,15 @@ export default function TabLayout() {
           headerShown: false,
           tabBarIcon: ({ color }) => <HomeIcon color={color} />,
           tabBarButtonTestID: 'home-tab',
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Settings color={color} />,
+          tabBarButtonTestID: 'settings-tab',
         }}
       />
     </Tabs>

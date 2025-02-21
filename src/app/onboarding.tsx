@@ -24,18 +24,12 @@ export default function Onboarding() {
           WifiDabba Starter
         </Text>
         <Text className="mb-2 text-center text-lg text-gray-600">
-          This is in collaboration with WeatherXM
+          Starter Template
         </Text>
 
-        <Text className="my-1 pt-6 text-left text-lg">
-          🚀 Inventory Management
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🥷 Includes setup for WeatherXM devices
-        </Text>
-        <Text className="my-1 text-left text-lg">
-          🧩 Test the setup using REST API.
-        </Text>
+        <Text className="my-1 pt-6 text-left text-lg">🚀 Feature #1</Text>
+        <Text className="my-1 text-left text-lg">🥷 Feature #2</Text>
+        <Text className="my-1 text-left text-lg">🧩 Feature #3. </Text>
         <Text className="my-1 text-left text-lg">
           💪 Assisted Deployment and Diagnostics.
         </Text>

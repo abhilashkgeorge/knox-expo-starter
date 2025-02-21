@@ -1,45 +1,60 @@
 import { create } from 'zustand';
 
+import type { TokenType, UserType } from '@/types';
+
 import { createSelectors } from '../utils';
-import type { TokenType } from './utils';
-import { getToken, removeToken, setToken } from './utils';
+import {
+  getToken,
+  getUser,
+  removeToken,
+  removeUser,
+  setToken,
+  setUser,
+} from './utils';
 
 interface AuthState {
   token: TokenType | null;
+  user: UserType | null;
   status: 'idle' | 'signOut' | 'signIn';
-  signIn: (data: TokenType) => void;
+  signIn: (token: TokenType, user: UserType) => void;
   signOut: () => void;
   hydrate: () => void;
+  hasRole: (role: string) => boolean;
 }
 
 const _useAuth = create<AuthState>((set, get) => ({
   status: 'idle',
   token: null,
-  signIn: (token) => {
+  user: null,
+  signIn: (token, user) => {
     setToken(token);
-    set({ status: 'signIn', token });
+    setUser(user);
+    set({ status: 'signIn', token, user });
   },
   signOut: () => {
     removeToken();
-    set({ status: 'signOut', token: null });
+    removeUser();
+    set({ status: 'signOut', token: null, user: null });
   },
   hydrate: () => {
     try {
       const userToken = getToken();
-      if (userToken !== null) {
-        get().signIn(userToken);
+      const userData = getUser();
+      if (userToken !== null && userData !== null) {
+        get().signIn(userToken, userData);
       } else {
         get().signOut();
       }
     } catch (e) {
-      // catch error here
-      // Maybe sign_out user!
+      get().signOut();
     }
   },
+  hasRole: (role) => get().user?.roles.includes(role) ?? false,
 }));
 
 export const useAuth = createSelectors(_useAuth);
 
 export const signOut = () => _useAuth.getState().signOut();
-export const signIn = (token: TokenType) => _useAuth.getState().signIn(token);
+export const signIn = (token: TokenType, user: UserType) =>
+  _useAuth.getState().signIn(token, user);
 export const hydrateAuth = () => _useAuth.getState().hydrate();

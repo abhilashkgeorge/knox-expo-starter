@@ -5,7 +5,7 @@ import { Text } from '@/components/ui';
 
 type Props = {
   children: React.ReactNode;
-  title?: string; // Changed from TxKeyPath to string
+  title?: string;
 };
 
 export const ItemsContainer = ({ title, children }: Props) => {

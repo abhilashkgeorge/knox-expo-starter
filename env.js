@@ -32,14 +32,14 @@ require('dotenv').config({
  * for example: if the APP_ENV is staging, the bundle id will be com.wd-knox-starter-kit.staging
  */
 
-// TODO: Replace these values with your own
+// TODO: Replace these values with the current app
 
 const BUNDLE_ID = 'com.knox-expo-starter-kit'; // ios bundle id
 const PACKAGE = 'com.knox-expo-starter-kit'; // android package name
 const NAME = 'knox-expo-starter-kit'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
-const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
-const SCHEME = 'knox-expo-starter-kit'; // app scheme
+const EAS_PROJECT_ID = '00000-6fe7-4686-aa49-0000000000000'; // eas project id
+const SCHEME = 'knox_expo_starter_kit'; // app scheme
 
 /**
  * We declare a function withEnvSuffix that will add a suffix to the variable name based on the APP_ENV
