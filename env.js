@@ -32,13 +32,13 @@ require('dotenv').config({
  * for example: if the APP_ENV is staging, the bundle id will be com.wd-knox-starter-kit.staging
  */
 
-// TODO: Replace these values with your own
+// TODO: Replace these values with the current app
 
 const BUNDLE_ID = 'com.knoxstarter'; // ios bundle id
 const PACKAGE = 'com.knox_expo_starter_kit'; // android package name
 const NAME = 'knox_expo_starter_kit'; // app name
 const EXPO_ACCOUNT_OWNER = 'expo-owner'; // expo account owner
-const EAS_PROJECT_ID = 'c3e1075b-6fe7-4686-aa49-35b46a229044'; // eas project id
+const EAS_PROJECT_ID = '00000-6fe7-4686-aa49-0000000000000'; // eas project id
 const SCHEME = 'knox_expo_starter_kit'; // app scheme
 
 /**

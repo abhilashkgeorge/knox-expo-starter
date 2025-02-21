@@ -5,29 +5,28 @@ import { useForm } from 'react-hook-form';
 import { KeyboardAvoidingView } from 'react-native-keyboard-controller';
 import * as z from 'zod';
 
-import { Button, ControlledInput, Text, View } from '@/components/ui';
+import { Button, ControlledInput, Image, Text, View } from '@/components/ui';
 
 const schema = z.object({
-  name: z.string().optional(),
-  email: z
+  phone: z
     .string({
-      required_error: 'Email is required',
+      required_error: 'Phone number is required',
     })
-    .email('Invalid email format'),
-  password: z
-    .string({
-      required_error: 'Password is required',
-    })
-    .min(6, 'Password must be at least 6 characters'),
+    .min(10, 'Phone number must be at least 10 digits')
+    .max(10, 'Phone number must be at most 10 digits'),
 });
 
 export type FormType = z.infer<typeof schema>;
 
 export type LoginFormProps = {
   onSubmit?: SubmitHandler<FormType>;
+  isLoading: boolean;
 };
 
-export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
+export const LoginForm = ({
+  onSubmit = () => {},
+  isLoading = false,
+}: LoginFormProps) => {
   const { handleSubmit, control } = useForm<FormType>({
     resolver: zodResolver(schema),
   });
@@ -37,47 +36,41 @@ export const LoginForm = ({ onSubmit = () => {} }: LoginFormProps) => {
       behavior="padding"
       keyboardVerticalOffset={10}
     >
-      <View className="flex-1 justify-center p-4">
+      <View className=" flex-1 pt-20">
+        <Image
+          source={require('@/../assets/icon.png')}
+          className="w-ful m-10 h-1/6 overflow-hidden"
+          contentFit="contain"
+        />
         <View className="items-center justify-center">
           <Text
             testID="form-title"
-            className="pb-6 text-center text-4xl font-bold"
+            className="pb-2 text-center text-3xl font-bold"
           >
-            Sign In
+            Enter Your Mobile Number
           </Text>
 
           <Text className="mb-6 max-w-xs text-center text-gray-500">
-            Welcome! 👋 This is a demo login screen! Feel free to use any email
-            and password to sign in and try it out.
+            We will send you a one-time password
           </Text>
         </View>
-
-        <ControlledInput
-          testID="name"
-          control={control}
-          name="name"
-          label="Name"
-        />
-
-        <ControlledInput
-          testID="email-input"
-          control={control}
-          name="email"
-          label="Email"
-        />
-        <ControlledInput
-          testID="password-input"
-          control={control}
-          name="password"
-          label="Password"
-          placeholder="***"
-          secureTextEntry={true}
-        />
-        <Button
-          testID="login-button"
-          label="Login"
-          onPress={handleSubmit(onSubmit)}
-        />
+        <View className="p-6">
+          <ControlledInput
+            testID="phone"
+            control={control}
+            name="phone"
+            keyboardType="phone-pad"
+          />
+          <Button
+            testID="request-otp-button"
+            className="h-12 w-1/2 self-center"
+            label="Request OTP"
+            variant="default"
+            onPress={handleSubmit(onSubmit)}
+            disabled={isLoading}
+            loading={isLoading}
+          />
+        </View>
       </View>
     </KeyboardAvoidingView>
   );

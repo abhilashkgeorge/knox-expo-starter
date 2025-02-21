@@ -5,14 +5,15 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { KeyboardProvider } from 'react-native-keyboard-controller';
 
 import { APIProvider } from '@/api';
-import { hydrateAuth, loadSelectedTheme } from '@/lib';
+import { SplashScreen as AnimatedSplash } from '@/components';
+import { checkForUpdates, hydrateAuth, loadSelectedTheme } from '@/lib';
 import { useThemeConfig } from '@/lib/use-theme-config';
 
 export { ErrorBoundary } from 'expo-router';
@@ -32,11 +33,31 @@ SplashScreen.setOptions({
 });
 
 export default function RootLayout() {
+  const [isAppReady, setIsAppReady] = useState<boolean>(false);
+
+  useEffect(() => {
+    const prepareApp = async () => {
+      checkForUpdates();
+      setIsAppReady(true);
+    };
+
+    prepareApp();
+  }, [isAppReady]);
+
+  if (!isAppReady) {
+    return <AnimatedSplash onAnimationFinish={() => setIsAppReady(true)} />;
+  }
+
   return (
     <Providers>
       <Stack>
-        <Stack.Screen name="(app)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="(app)"
+          options={{ title: 'Home', headerShown: false }}
+        />
         <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="otp" options={{ headerShown: false }} />
       </Stack>
     </Providers>
   );
