@@ -28,16 +28,16 @@ export const SplashScreen = ({
         clearInterval(interval);
         onAnimationFinish(); // Trigger navigation after 3 repetitions
       }
-    }, 1500); // Adjust this duration based on your animation length
+    }, 5000); // Adjust this duration based on your animation length
 
     return () => clearInterval(interval);
-  }, [repeatCount]);
+  }, [repeatCount, onAnimationFinish]);
 
   return (
-    <View className="align-center background-white flex-1 justify-center">
+    <View className="align-center background-red flex-1 justify-center">
       <LottieView
         ref={animationRef}
-        source={require('../../assets/spinning.json')}
+        source={require('../../../assets/lottie/spinning.json')}
         autoPlay
         loop={false}
         style={{ width: 200, height: 200 }}

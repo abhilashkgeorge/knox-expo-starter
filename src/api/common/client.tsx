@@ -31,7 +31,7 @@ client.interceptors.response.use(
       signOut();
     }
     if (error.response?.status === 403) {
-      const userRoles = getUser().roles;
+      const userRoles = getUser()?.roles;
       showErrorMessage(`Access denied for role: ${userRoles}, Elevate!`);
     }
     return Promise.reject(error.response.data);
