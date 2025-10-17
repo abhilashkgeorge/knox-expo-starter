@@ -18,6 +18,16 @@ const button = tv({
         label: 'text-white dark:text-black',
         indicator: 'text-white dark:text-black',
       },
+      brand: {
+        container: 'bg-brand-500',
+        label: 'font-bold text-black',
+        indicator: 'text-black',
+      },
+      dbrand: {
+        container: 'bg-brand-900',
+        label: 'font-bold text-black',
+        indicator: 'text-black',
+      },
       secondary: {
         container: 'bg-primary-600',
         label: 'text-secondary-600',
@@ -131,10 +141,7 @@ export const Button = React.forwardRef<View, Props>(
                 testID={testID ? `${testID}-activity-indicator` : undefined}
               />
             ) : (
-              <Text
-                testID={testID ? `${testID}-label` : undefined}
-                className={styles.label({ className: textClassName })}
-              >
+              <Text className={styles.label({ className: textClassName })}>
                 {text}
               </Text>
             )}
