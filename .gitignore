@@ -21,3 +21,9 @@ yarn-error.log
 
 expo-env.d.ts
 # @end expo-cli
+.env.local
+
+.env.production
+.env.development
+.env.staging
+

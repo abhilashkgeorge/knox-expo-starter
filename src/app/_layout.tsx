@@ -3,6 +3,7 @@ import '../../global.css';
 
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { ThemeProvider } from '@react-navigation/native';
+import * as Sentry from '@sentry/react-native';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect, useState } from 'react';
@@ -14,6 +15,7 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import { APIProvider } from '@/api';
 import { SplashScreen as AnimatedSplash } from '@/components';
 import { checkForUpdates, hydrateAuth, loadSelectedTheme } from '@/lib';
+import { initSentry, useSentryNavigationConfig } from '@/lib/sentry';
 import { useThemeConfig } from '@/lib/use-theme-config';
 
 export { ErrorBoundary } from 'expo-router';
@@ -24,6 +26,7 @@ export const unstable_settings = {
 
 hydrateAuth();
 loadSelectedTheme();
+initSentry();
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 // Set the animation options. This is optional.
@@ -32,8 +35,9 @@ SplashScreen.setOptions({
   fade: true,
 });
 
-export default function RootLayout() {
+function RootLayout() {
   const [isAppReady, setIsAppReady] = useState<boolean>(false);
+  useSentryNavigationConfig();
 
   useEffect(() => {
     const prepareApp = async () => {
@@ -89,3 +93,5 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+export default Sentry.wrap(RootLayout);
