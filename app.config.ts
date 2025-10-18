@@ -26,6 +26,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   description: `${Env.NAME} Mobile App`,
   owner: Env.EXPO_ACCOUNT_OWNER,
   scheme: Env.SCHEME,
+  // TODO: Change this
   slug: 'knoxapp',
   version: Env.VERSION.toString(),
   orientation: 'portrait',
@@ -33,12 +34,16 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
   userInterfaceStyle: 'automatic',
   newArchEnabled: true,
   updates: {
-    fallbackToCacheTimeout: 0,
+    // TODO: Change this
+    // url: 'https://u.expo.dev/xxx.xxx.xxx.xx03a',
   },
+  runtimeVersion: '1.0.0',
   assetBundlePatterns: ['**/*'],
   ios: {
     supportsTablet: true,
     bundleIdentifier: Env.BUNDLE_ID,
+    //TODO: Remove after adding
+    googleServicesFile: './GoogleService-Info.plist',
     infoPlist: {
       ITSAppUsesNonExemptEncryption: false,
     },
@@ -51,7 +56,9 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
       foregroundImage: './assets/adaptive-icon.png',
       backgroundColor: '#2E3C4B',
     },
+    versionCode: 1,
     package: Env.PACKAGE,
+    googleServicesFile: './google-services.json',
   },
   web: {
     favicon: './assets/favicon.png',
@@ -61,7 +68,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     [
       'expo-splash-screen',
       {
-        backgroundColor: '#161617',
+        backgroundColor: '#2E3C4B',
         image: './assets/splash-icon.png',
         imageWidth: 150,
       },
@@ -72,15 +79,32 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
         fonts: ['./assets/fonts/Inter.ttf'],
       },
     ],
+    'expo-localization',
     'expo-router',
     ['app-icon-badge', appIconBadgeConfig],
     ['react-native-edge-to-edge'],
     [
-      '@sentry/react-native/expo',
+      'expo-location',
       {
-        url: 'https://sentry.io/',
-        organization: Env.SENTRY_ORG,
-        project: Env.SENTRY_PROJECT,
+        locationAlwaysAndWhenInUsePermission:
+          'Allow $(PRODUCT_NAME) to use your location for navigation.',
+      },
+    ],
+    [
+      'expo-media-library',
+      {
+        photosPermission:
+          'Allow $(PRODUCT_NAME) to access your media library to save invoices.',
+        savePhotosPermission:
+          'Allow $(PRODUCT_NAME) to save invoices to your media library.',
+      },
+    ],
+    [
+      'expo-notifications',
+      {
+        icon: './assets/notification-icon.png',
+        color: '#FFEE02',
+        sounds: ['./assets/sounds/notification.wav'],
       },
     ],
   ],

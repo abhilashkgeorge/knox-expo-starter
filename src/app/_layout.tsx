@@ -16,7 +16,8 @@ import { KeyboardProvider } from 'react-native-keyboard-controller';
 import Animated, { FadeOut } from 'react-native-reanimated';
 
 import { APIProvider } from '@/api';
-import { AppSplashScreen, AppStatusModal } from '@/components';
+import { AlertContainer, AppSplashScreen, AppStatusModal } from '@/components';
+import { NotificationProvider } from '@/context';
 import { hydrateAuth, loadSelectedTheme } from '@/lib';
 import { useAppInitialization as useAppInitializationHook } from '@/lib/hooks/use-app-initialization';
 import { initSentry, useSentryNavigationConfig } from '@/lib/sentry';
@@ -77,13 +78,13 @@ function RootLayout() {
         onLayout={onLayoutRootView}
       >
         <Stack screenOptions={{ animation: 'flip' }}>
-          <Stack.Screen name="(app)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="(app)"
+            options={{ title: 'Home', headerShown: false }}
+          />
           <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-          {/* <Stack.Screen name="scan-router" options={{ headerShown: false }} /> */}
-          <Stack.Screen name="loading" options={{ headerShown: false }} />
-          <Stack.Screen name="configure" options={{ headerShown: false }} />
-          <Stack.Screen name="setup" options={{ headerShown: false }} />
+          <Stack.Screen name="login" options={{ headerShown: false }} />
+          <Stack.Screen name="otp" options={{ headerShown: false }} />
         </Stack>
 
         {/* Status Modal */}
@@ -93,7 +94,7 @@ function RootLayout() {
             type={modalType}
             message={
               modalType === 'no-internet'
-                ? 'Please check your router connection and try again.'
+                ? 'Please check your internet connection and try again.'
                 : message
             }
             buttonText={
@@ -124,21 +125,24 @@ function RootLayout() {
 function Providers({ children }: { children: React.ReactNode }) {
   const theme = useThemeConfig();
   return (
-    <GestureHandlerRootView
-      style={styles.container}
-      className={theme.dark ? `dark` : undefined}
-    >
-      <KeyboardProvider>
-        <ThemeProvider value={theme}>
-          <APIProvider>
-            <BottomSheetModalProvider>
-              {children}
-              <FlashMessage position="top" />
-            </BottomSheetModalProvider>
-          </APIProvider>
-        </ThemeProvider>
-      </KeyboardProvider>
-    </GestureHandlerRootView>
+    <NotificationProvider>
+      <GestureHandlerRootView
+        style={styles.container}
+        className={theme.dark ? `dark` : undefined}
+      >
+        <KeyboardProvider>
+          <ThemeProvider value={theme}>
+            <APIProvider>
+              <AlertContainer />
+              <BottomSheetModalProvider>
+                {children}
+                <FlashMessage position="top" />
+              </BottomSheetModalProvider>
+            </APIProvider>
+          </ThemeProvider>
+        </KeyboardProvider>
+      </GestureHandlerRootView>
+    </NotificationProvider>
   );
 }
 
